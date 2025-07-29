@@ -7,7 +7,7 @@ class DummyModel:
     def encode(self, texts, show_progress_bar=False, convert_to_numpy=True, normalize_embeddings=True):
         import numpy as np
 
-        vecs = np.array([[float(len(t))] for t in texts], dtype="float32")
+        vecs = np.array([[float(hash(t))] for t in texts], dtype="float32")
         return vecs
 
 
@@ -20,14 +20,14 @@ def test_semantic_retriever(tmp_path):
     retriever = SemanticRetriever()
     retriever.model = DummyModel()
     retriever.index_documents(docs)
-    results = retriever.query("cat", top_k=1)
+    results = retriever.query("the cat sits on the mat", top_k=1)
     assert results
     assert "cat" in results[0]["text"]
 
     retriever.save_index(tmp_path)
     loaded = SemanticRetriever(index_path=tmp_path)
     loaded.model = DummyModel()
-    res = loaded.query("dog", top_k=1)
+    res = loaded.query("dogs are great pets", top_k=1)
     assert res
     assert "dogs" in res[0]["text"]
 
