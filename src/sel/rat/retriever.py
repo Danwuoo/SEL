@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import faiss
-import numpy as np
 from sentence_transformers import SentenceTransformer
 
 from .utils import embed_batch
