@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "sel"
+version = "0.1.0"
+description = "Scalable Embodied Learning framework"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "sel", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+faiss-cpu = "^1.7.4"
+sentence-transformers = "^2.2.2"
+transformers = "^4.35.0"
+datasets = "^2.14.5"
+torch = "^2.1.0"
+accelerate = "^0.24.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+ruff = "^0.1.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
