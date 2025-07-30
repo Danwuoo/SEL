@@ -2,7 +2,7 @@ import numpy as np
 
 
 class SentenceTransformer:
-    def __init__(self, model_name: str) -> None:
+    def __init__(self, model_name: str = 'dummy') -> None:
         self.model_name = model_name
 
     def encode(
@@ -12,9 +12,9 @@ class SentenceTransformer:
         convert_to_numpy: bool = True,
         normalize_embeddings: bool = True,
     ):
-        vecs = np.array([[float(len(t))] for t in texts], dtype=np.float32)
+        vecs = np.array([[float(abs(hash(t)) % 1000)] for t in texts], dtype='float32')
         if normalize_embeddings:
-            denom = np.linalg.norm(vecs, axis=1, keepdims=True)
-            denom[denom == 0] = 1.0
-            vecs = vecs / denom
+            norm = np.linalg.norm(vecs, axis=1, keepdims=True)
+            norm[norm == 0] = 1
+            vecs = vecs / norm
         return vecs
